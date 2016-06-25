@@ -162,13 +162,3 @@ def getL2Neighbours(address):
 
 
 
-ad1 = intToAddress('406')
-print "Neighbours of ", addressToInt(ad1),":"
-neighbours = getL1Neighbours(ad1)
-for tile in neighbours:
-    print tile.bin, addressToInt(tile)
-
-
-
-
-
