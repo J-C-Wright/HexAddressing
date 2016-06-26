@@ -1,7 +1,6 @@
 import HexAddresses as ha
 from math import sqrt, cos, sin, pi, atan
 
-
 def coefficients(address):
 
     assert len(address)%3 == 0, "Bitstring length must be multiple of three"
@@ -41,31 +40,35 @@ def coordinates(coeffs):
 
     assert len(coeffs) == 3, "Must be three coefficients"
 
-    theta = atan(-11.0/(5*sqrt(3))) + pi
-    scale = 1.0/7.0
     
-    v = [[1,0],[-0.5,0.5*sqrt(3)],[-0.5,-0.5*sqrt(3)]]
-
-    for vi in v:
-        #rotation
-        x = cos(theta)*vi[0] - sin(theta)*vi[1]
-        y = sin(theta)*vi[0] + cos(theta)*vi[1]
-        #scale
-        x *= scale
-        y *= scale
-
-        vi[0] = x
-        vi[1] = y
-
+    vs = [[1,0],[-0.5,0.5*sqrt(3)],[-0.5,-0.5*sqrt(3)]]
     out = [0,0]
 
-    for vi,coeff in zip(v,coeffs):
-        out[0] += vi[0]*coeff
-        out[1] += vi[1]*coeff
+    for v,coeff in zip(vs,coeffs):
+        out[0] += v[0]*coeff
+        out[1] += v[1]*coeff
     
     return out
 
- 
+def addressToXY(address):
+
+    coeffs = coefficients(address)
+    coords = coordinates(coeffs)
+
+    #Apply transformation into desired setup
+    theta = atan(-11.0/(5*sqrt(3))) + pi
+    scale = 1.0/7.0
+    #rotation
+    x = cos(theta)*coords[0] - sin(theta)*coords[1]
+    y = sin(theta)*coords[0] + cos(theta)*coords[1]
+    #scale
+    x *= scale
+    y *= scale
+
+
+    return [x,y]
+
+
     
 
 
