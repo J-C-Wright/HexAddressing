@@ -137,7 +137,7 @@ def hexAdd(address1,address2):
 
 def getL1Neighbours(address):
 
-    directions = ['001','002','003','004','005','006']
+    directions = ['001','003','002','006','004','005']
     addresses = []
     for direction in directions:
         dirAddress = intToAddress(direction)
@@ -147,7 +147,7 @@ def getL1Neighbours(address):
 
 def getL2Neighbours(address):
 
-    directions = ['001','002','003','004','005','006',
+    directions = ['001','003','002','006','004','005',
                   '012','034','036','025','024','061',
                   '065','043','041','052','053','016']
     addresses = []
