@@ -1,5 +1,6 @@
 from bitstring import Bits
 from bitstring import BitArray
+from math import pow
 
 
 
@@ -157,8 +158,17 @@ def getL2Neighbours(address):
         addresses.append(neighbour)
     return addresses
 
+def addressToIndex(address):
 
-        
+    digits = addressToInt(address)
+    digits = digits[::-1]
+       
+    index = 0
+    for i in range(len(digits)):
+        index += int(digits[i]) * 7**i
+
+    return index
+
 
 
 

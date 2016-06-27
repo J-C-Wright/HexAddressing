@@ -65,7 +65,6 @@ def addressToXY(address):
     x *= scale
     y *= scale
 
-
     return [x,y]
 
 
