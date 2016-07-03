@@ -3,17 +3,17 @@ from bitstring import BitArray
 from math import pow
 
 
+def carry(digits):
 
+    for digit in digits:
+        assert len(digit) == 3, "Bitstrings must have length = 3"
 
-def carry(a,b):
-
-    assert len(a) == 3 and len(b) == 3, "Bitstrings must have length = 3"
-
-    r = remainder(a,b)
-    bits = BitArray( ((a ^ b) ^ r))
+    bits = BitArray(bin='000')
+    for digit in digits:
+        bits = bits ^ digit
     bits.rol(1)
-
     return bits
+
 
 def remainder(a,b):
 
@@ -121,10 +121,9 @@ def hexAdd(address1,address2):
     car = Bits(bin='000')
     for i in range(numDigits):
 
-        #Problem is here, carry is possibly wrong
         rem = remainder(trips1[i],trips2[i])
         rem = remainder(rem,car)
-        car = carry(trips1[i],trips2[i])
+        car = carry([car,trips1[i],trips2[i],rem])
 
         addressOut.append(rem)
 

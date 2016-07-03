@@ -1,9 +1,13 @@
+#!/usr/bin/python
+
+import sys, getopt
 import HexAddresses as ha
 import HexCoordinates as hc
 
-adString = '000'
+adString = str(sys.argv[1])
 
 print ""
+print "Input cell address is:", adString
 print "Demonstration of neighbour finding and address->coordinates conversion"
 ad1 = ha.intToAddress(adString)
 
