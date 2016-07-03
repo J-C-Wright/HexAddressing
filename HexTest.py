@@ -31,26 +31,9 @@ for tile in neighbours:
     print ha.addressToInt(tile), " -- ",
     print tile.bin," -- ",
     coeffs = hc.coefficients(tile)
-    print "({:2.1f},{:2.1f},{:2.1f})".format(coeffs[0],coeffs[1],coeffs[2])," -- ",
+    print "({:3.1f},{:3.1f},{:3.1f})".format(coeffs[0],coeffs[1],coeffs[2])," -- ",
     coords = hc.addressToXY(tile)
     print "({:6.3f},{:6.3f})".format(coords[0],coords[1])," -- ",
     print ha.addressToIndex(tile)
-
-'''
-print "L2 Neighbours of ", ha.addressToInt(ad1),":"
-neighbours = ha.getL2Neighbours(ad1)
-for tile in neighbours:
-
-    print ha.addressToInt(tile), " -- ",
-    print tile.bin," -- ",
-    coeffs = hc.coefficients(tile)
-    print "({:2.0f},{:2.0f},{:2.0f})".format(coeffs[0],coeffs[1],coeffs[2])," -- ",
-    coords = hc.addressToXY(tile)
-    print "({:6.3f},{:6.3f})".format(coords[0],coords[1])," -- ",
-    print ha.addressToIndex(tile)
-'''
-
-
-
 
 
