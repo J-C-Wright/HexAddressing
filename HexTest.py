@@ -4,11 +4,16 @@ import sys, getopt
 import HexAddresses as ha
 import HexCoordinates as hc
 
-adString = str(sys.argv[1])
+adString = ''
 
-print ""
-print "Input cell address is:", adString
+myopts, args = getopt.getopt(sys.argv[1:],"a:")
+for o, a in myopts:
+    if o == '-a':
+        adString = a
+assert len(adString)==3, "Address is not 3 digits"
+
 print "Demonstration of neighbour finding and address->coordinates conversion"
+print "Input cell address is:", adString
 ad1 = ha.intToAddress(adString)
 
 print ha.addressToInt(ad1), " -- ",
