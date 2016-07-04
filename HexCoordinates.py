@@ -54,10 +54,10 @@ def addressToXY(address):
     #Apply transformation into desired setup
     theta = 0
     scale = 1/1.5 #Where did the factor of 1.5 come from?
-    #rotation
+
     x = cos(theta)*coords[0] - sin(theta)*coords[1]
     y = sin(theta)*coords[0] + cos(theta)*coords[1]
-    #scale
+
     x *= scale
     y *= scale
 

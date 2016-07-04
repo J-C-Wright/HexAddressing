@@ -100,7 +100,7 @@ def intToAddress(intAddress):
         bitString += intToBits(int(digit))
     return Bits(bin=bitString)
 
-def hexAdd(address1,address2):
+def addressAdd(address1,address2):
 
     assert len(address1)%3 == 0 and len(address2)%3 == 0, "Bitstring length must be multiple of three"
     assert len(address1) == len(address2), "Bitstrings must be equal length"
@@ -141,7 +141,7 @@ def getL1Neighbours(address):
     addresses = []
     for direction in directions:
         dirAddress = intToAddress(direction)
-        neighbour = hexAdd(address,dirAddress)
+        neighbour = addressAdd(address,dirAddress)
         addresses.append(neighbour)
     return addresses
 
@@ -153,7 +153,7 @@ def getL2Neighbours(address):
     addresses = []
     for direction in directions:
         dirAddress = intToAddress(direction)
-        neighbour = hexAdd(address,dirAddress)
+        neighbour = addressAdd(address,dirAddress)
         addresses.append(neighbour)
     return addresses
 
