@@ -30,12 +30,15 @@ def getPatch(address):
              Path.LINETO,
              Path.LINETO,
              Path.CLOSEPOLY,
-         ]
+             ]
 
     path = Path(hexVerts,codes)
     return path
 
-
+def hexLabel(axes,address):
+    ad = ha.intToAddress(address)
+    coords = hc.addressToXY(ad)
+    axes.annotate(address,(coords[0]-0.1,coords[1]))
 
 
 
@@ -99,6 +102,16 @@ ax.add_patch(patch9)
 
 ax.set_xlim(-2,2)
 ax.set_ylim(-2,2)
+
+hexLabel(ax,'000')
+hexLabel(ax,'001')
+hexLabel(ax,'002')
+hexLabel(ax,'003')
+hexLabel(ax,'004')
+hexLabel(ax,'005')
+hexLabel(ax,'006')
+hexLabel(ax,'016')
+
 plt.axes().set_aspect('equal')
 plt.show()
 
