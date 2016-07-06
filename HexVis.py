@@ -38,7 +38,7 @@ def getPatch(address):
 def hexLabel(axes,address):
     ad = ha.intToAddress(address)
     coords = hc.addressToXY(ad)
-    axes.annotate(address,(coords[0]-0.1,coords[1]))
+    axes.annotate(address,(coords[0]-0.15,coords[1]-0.05))
 
 
 
@@ -64,22 +64,22 @@ codes = [Path.MOVETO,
          Path.CLOSEPOLY,
          ]
          
-path1 = Path(verts,codes)
-path2 = getPatch('001')
-path3 = getPatch('002')
-path4 = getPatch('003')
-path5 = getPatch('004')
-path6 = getPatch('005')
-path7 = getPatch('006')
-path8 = getPatch('016')
-path9 = getPatch('000')
+path1 = getPatch('001')
+path2 = getPatch('002')
+path3 = getPatch('003')
+path4 = getPatch('004')
+path5 = getPatch('005')
+path6 = getPatch('006')
+path7 = getPatch('016')
+path8 = getPatch('000')
+path9 = getPatch('024')
 
 
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
-patch1 = patches.PathPatch(path1, facecolor='blue', lw=1)
+patch1 = patches.PathPatch(path1, facecolor='orange', lw=1)
 patch2 = patches.PathPatch(path2, facecolor='orange', lw=1)
 patch3 = patches.PathPatch(path3, facecolor='orange', lw=1)
 patch4 = patches.PathPatch(path4, facecolor='orange', lw=1)
@@ -100,8 +100,8 @@ ax.add_patch(patch7)
 ax.add_patch(patch8)
 ax.add_patch(patch9)
 
-ax.set_xlim(-2,2)
-ax.set_ylim(-2,2)
+ax.set_xlim(-3,3)
+ax.set_ylim(-3,3)
 
 hexLabel(ax,'000')
 hexLabel(ax,'001')
@@ -111,6 +111,10 @@ hexLabel(ax,'004')
 hexLabel(ax,'005')
 hexLabel(ax,'006')
 hexLabel(ax,'016')
+hexLabel(ax,'034')
+hexLabel(ax,'012')
+hexLabel(ax,'013')
+hexLabel(ax,'024')
 
 plt.axes().set_aspect('equal')
 plt.show()
