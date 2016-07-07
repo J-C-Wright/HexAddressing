@@ -7,8 +7,7 @@ import HexCoordinates as hc
 
 from math import sqrt
 
-
-def getPatch(address):
+def getPath(address):
     
     scale = 1/sqrt(3)
     ad = ha.intToAddress(address)
@@ -38,87 +37,36 @@ def getPatch(address):
 def hexLabel(axes,address):
     ad = ha.intToAddress(address)
     coords = hc.addressToXY(ad)
-    axes.annotate(address,(coords[0]-0.15,coords[1]-0.05))
+    axes.annotate(address,(coords[0]-0.15,coords[1]-0.05),fontsize=10)
 
-
-
-
-
-adString = '000'
-ad1 = ha.intToAddress(adString)
-
-verts = []
-neighbours = ha.getL1Neighbours(ad1)
-for tile in neighbours:
-    coords = hc.addressToXY(tile)
-    verts.append((coords[0],coords[1]))
-temp = hc.addressToXY(neighbours[0])
-verts.append((temp[0],temp[1]))
-
-codes = [Path.MOVETO,
-         Path.LINETO,
-         Path.LINETO,
-         Path.LINETO,
-         Path.LINETO,
-         Path.LINETO,
-         Path.CLOSEPOLY,
-         ]
+def getPatch(path):
+    return patches.PathPatch(path, facecolor='orange', lw=1)
          
-path1 = getPatch('001')
-path2 = getPatch('002')
-path3 = getPatch('003')
-path4 = getPatch('004')
-path5 = getPatch('005')
-path6 = getPatch('006')
-path7 = getPatch('016')
-path8 = getPatch('000')
-path9 = getPatch('024')
+def drawHexes(addresses):
+
+    patchList = []
+    for address in addresses:
+        path = getPath(address)
+        patchList.append(getPatch(path))
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+
+    for patch in patchList:
+        ax.add_patch(patch)
+
+    ax.set_xlim(-4,4)
+    ax.set_ylim(-4,4)
+
+    for address in addresses:
+        hexLabel(ax,address)
+
+    plt.axes().set_aspect('equal')
+    plt.show()
 
 
-
-fig = plt.figure()
-ax = fig.add_subplot(111)
-
-patch1 = patches.PathPatch(path1, facecolor='orange', lw=1)
-patch2 = patches.PathPatch(path2, facecolor='orange', lw=1)
-patch3 = patches.PathPatch(path3, facecolor='orange', lw=1)
-patch4 = patches.PathPatch(path4, facecolor='orange', lw=1)
-patch5 = patches.PathPatch(path5, facecolor='orange', lw=1)
-patch6 = patches.PathPatch(path6, facecolor='orange', lw=1)
-patch7 = patches.PathPatch(path7, facecolor='orange', lw=1)
-patch8 = patches.PathPatch(path8, facecolor='orange', lw=1)
-patch9 = patches.PathPatch(path9, facecolor='orange', lw=1)
-
-
-ax.add_patch(patch1)
-ax.add_patch(patch2)
-ax.add_patch(patch3)
-ax.add_patch(patch4)
-ax.add_patch(patch5)
-ax.add_patch(patch6)
-ax.add_patch(patch7)
-ax.add_patch(patch8)
-ax.add_patch(patch9)
-
-ax.set_xlim(-3,3)
-ax.set_ylim(-3,3)
-
-hexLabel(ax,'000')
-hexLabel(ax,'001')
-hexLabel(ax,'002')
-hexLabel(ax,'003')
-hexLabel(ax,'004')
-hexLabel(ax,'005')
-hexLabel(ax,'006')
-hexLabel(ax,'016')
-hexLabel(ax,'034')
-hexLabel(ax,'012')
-hexLabel(ax,'013')
-hexLabel(ax,'024')
-
-plt.axes().set_aspect('equal')
-plt.show()
-
-
-
+addresses = ['001','002','003','004','005','006','016',
+             '066','024','034','013','026','061','042',
+             '044','051','056','053']
+drawHexes(addresses)
 
