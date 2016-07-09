@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.path import Path
 import matplotlib.patches as patches
-
+import os
 import HexAddresses as ha
 import HexCoordinates as hc
 
@@ -68,6 +68,8 @@ def drawHexes(addresses,show=True,save=False,directory='',fileName=''):
         plt.show()
     if (save):
         print "Saving "+directory+fileName+".pdf"
+        if not os.path.exists(directory):
+                os.makedirs(directory)
         fig.savefig(directory+fileName+".pdf",format='pdf')
 
 
