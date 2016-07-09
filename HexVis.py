@@ -34,10 +34,10 @@ def getPath(address):
     path = Path(hexVerts,codes)
     return path
 
-def hexLabel(axes,address):
+def hexLabel(axes,address,fontSize):
     ad = ha.intToAddress(address)
     coords = hc.addressToXY(ad)
-    axes.annotate(address,(coords[0]-0.15,coords[1]-0.05),fontsize=10)
+    axes.annotate(address,(coords[0]-0.15,coords[1]-0.05),fontsize=fontSize)
 
 def getPatch(path):
     return patches.PathPatch(path, facecolor='orange', lw=1)
@@ -55,18 +55,33 @@ def drawHexes(addresses):
     for patch in patchList:
         ax.add_patch(patch)
 
-    ax.set_xlim(-4,4)
-    ax.set_ylim(-4,4)
+    scale = 3.0
+    ax.set_xlim(-4*scale,4*scale)
+    ax.set_ylim(-4*scale,4*scale)
 
     for address in addresses:
-        hexLabel(ax,address)
+        hexLabel(ax,address,10/scale)
 
     plt.axes().set_aspect('equal')
     plt.show()
 
-
-addresses = ['001','002','003','004','005','006','016',
+canons1 = ['001','002','003','004','005','006','016',
              '066','024','034','013','026','061','042',
-             '044','051','056','053']
-drawHexes(addresses)
+             '026','021','033','015','046','063','030',
+             '044','051','056','053','045','064']
+
+canons2 = ['000',
+             '011','012','013','014','015','016',
+             '021','022','023','024','025','026',
+             '031','032','033','034','035','036',
+             '041','042','043','044','045','046',
+             '051','052','053','054','055','056',
+             '061','062','063','064','065','066']
+
+canons3 = ha.makeCanonArray(0,0,1,3)
+drawHexes(canons3)
+
+
+
+
 

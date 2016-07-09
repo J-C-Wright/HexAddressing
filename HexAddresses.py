@@ -168,6 +168,35 @@ def addressToIndex(address):
 
     return index
 
+def indexToInt(index):
+
+    length = len(str(index))
+    digit = index
+    canon = ''
+
+    for i in range(length,-1,-1):
+        rem = digit % 7**i
+        if (rem != digit):
+            canon += str((digit - rem)/(7**i))
+            digit = rem
+        else:
+            canon += '0'
+
+    while len(canon)%3 != 0:
+        canon = '0' + canon
+
+    if (canon[:3] == '000' and len(canon) > 3):
+        canon = canon[3:]
+    return canon
+
+def makeCanonArray(start,shift,step,order):
+
+    canons = []
+    for i in range(start,7**order-shift,step):
+        canons.append(indexToInt(i+shift))
+
+    return canons
+
 
 
 
