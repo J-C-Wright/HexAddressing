@@ -42,7 +42,7 @@ def hexLabel(axes,address,fontSize):
 def getPatch(path):
     return patches.PathPatch(path, facecolor='orange', lw=1)
          
-def drawHexes(addresses):
+def drawHexes(addresses,show=True,save=False,directory='',fileName=''):
 
     patchList = []
     for address in addresses:
@@ -50,6 +50,7 @@ def drawHexes(addresses):
         patchList.append(getPatch(path))
 
     fig = plt.figure()
+    fig.set_canvas(plt.gcf().canvas)
     ax = fig.add_subplot(111)
 
     for patch in patchList:
@@ -63,11 +64,21 @@ def drawHexes(addresses):
         hexLabel(ax,address,10/scale)
 
     plt.axes().set_aspect('equal')
-    plt.show()
+    if (show):
+        plt.show()
+    if (save):
+        print "Saving "+directory+fileName+".pdf"
+        fig.savefig(directory+fileName+".pdf",format='pdf')
 
 
-canons = ha.makeCanonArray(start=0,shift=0,step=5,order=3)
-drawHexes(canons)
+srt = 0
+shf = 0
+stp = 1
+odr = 3
+for i in range(1,16,1):
+    canons = ha.makeCanonArray(start=srt,shift=shf,step=i,order=odr)
+    name = 'Start'+str(srt)+'_Shift'+str(shf)+'_Step'+str(i)+'_Order'+str(odr)
+    drawHexes(canons,show=False,save=True,directory="Plots/",fileName=name)
 
 
 
