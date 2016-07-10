@@ -77,20 +77,22 @@ canons1 = ha.makeCanonArray(0,0,1,3)
 canons2 = []#ha.makeCanonArray(0,0,1,3)
 s = set(canons2)
 canons3 = [x for x in canons1 if x not in s]
-
-canons4 = ['000','001','002','004','010','020','040','100','200','400']
 '''
 
-canons5 = ha.makeCanonArray(0,0,1,4)
+canons4 = ['000','001','002','004','010','020','040','100','200','400','1000','2000','4000']
 
-
-drawHexes(canons5,show=False,save=True,directory="Plots/",fileName="FourthAggregate")
-
-'''
 srt = 0
 shf = 0
-stp = 1
-odr = 3
+stp = 7
+odr = 4
+canons5 = ha.makeCanonArray(srt,shf,stp,odr)
+
+
+#drawHexes(canons4,show=False,save=True,directory="Plots/",fileName="AggregateCentriods")
+name = 'Start'+str(srt)+'_Shift'+str(shf)+'_Step'+str(stp)+'_Order'+str(odr)
+drawHexes(canons5,show=False,save=True,directory="Plots/",fileName=name)
+
+'''
 for i in range(1,21,1):
     canons = ha.makeCanonArray(start=srt,shift=shf,step=i,order=odr)
     name = 'Start'+str(srt)+'_Shift'+str(shf)+'_Step'+str(i)+'_Order'+str(odr)

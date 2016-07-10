@@ -42,6 +42,7 @@ def add(a,b):
 
     return [carTemp,bits]
 
+
 def bitsToCanon(trip):
     assert len(trip) == 3, "Must be three bits long"
 
@@ -77,6 +78,16 @@ def canonToBits(digit):
         return '101'
     elif digit == 6:
         return '011'
+
+def negateAddress(address):
+
+    assert len(address)%3 == 0, "Bitstring length must be multiple of three"
+    ones = Bits(bin = '1'*len(address))
+    return address ^ ones
+
+def addressSubtract(address1,address2):
+
+    return addressAdd(address1,negateAddress(address2))
 
 def addressToCanon(address):
 

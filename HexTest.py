@@ -4,21 +4,21 @@ import sys, getopt
 import HexAddresses as ha
 import HexCoordinates as hc
 
-adString = ''
-oneString = ''
+ad1String = ''
+ad2String = ''
 myopts, args = getopt.getopt(sys.argv[1:],"a:b:")
 for o, a in myopts:
     if o == '-a':
-        adString = a
+        ad1String = a
     if o == '-b':
-        oneString = a
-#assert len(adString)==3, "Address is not 3 digits"
+        ad2String = a
+#assert len(ad1String)==3, "Address is not 3 digits"
 
 print "Demonstration of neighbour finding and address->coordinates conversion"
-print "Input cell address is:", adString
-ad1 = ha.canonToAddress(adString)
-one = ha.canonToAddress(oneString)
-
+print "Input cell address is:", ad1String
+ad1 = ha.canonToAddress(ad1String)
+ad2 = ha.canonToAddress(ad2String)
+out = ha.addressAdd(ad1,ad2)
 
 print ha.addressToCanon(ad1), " -- ",
 print ad1.bin," -- ",
@@ -28,25 +28,27 @@ coords = hc.addressToXY(ad1)
 print "({:6.3f},{:6.3f})".format(coords[0],coords[1])," -- ",
 print ha.addressToIndex(ad1)
 
-print ha.addressToCanon(one), " -- ",
-print one.bin," -- ",
-coeffs = hc.coefficients(one)
+print ha.addressToCanon(ad2), " -- ",
+print ad2.bin," -- ",
+coeffs = hc.coefficients(ad2)
 print "({:3.1f},{:3.1f},{:3.1f})".format(coeffs[0],coeffs[1],coeffs[2])," -- ",
-coords = hc.addressToXY(one)
+coords = hc.addressToXY(ad2)
 print "({:6.3f},{:6.3f})".format(coords[0],coords[1])," -- ",
-print ha.addressToIndex(one)
+print ha.addressToIndex(ad2)
 
-
-up1 = ha.addressAdd(ad1,one);
-print "--->",up1.bin, " -- ",
-print ha.addressToCanon(up1), " -- ",
-coeffs = hc.coefficients(up1)
+print ha.addressToCanon(out), " -- ",
+print out.bin," -- ",
+coeffs = hc.coefficients(out)
 print "({:3.1f},{:3.1f},{:3.1f})".format(coeffs[0],coeffs[1],coeffs[2])," -- ",
-coords = hc.addressToXY(up1)
+coords = hc.addressToXY(out)
 print "({:6.3f},{:6.3f})".format(coords[0],coords[1])," -- ",
-print ha.addressToIndex(up1)
+print ha.addressToIndex(out)
 
 print
+neg = ha.negateAddress(ad1)
+print neg.bin,"=",ha.addressToCanon(neg)
+diff = ha.addressSubtract(out,ad2)
+print diff.bin,"=",ha.addressToCanon(diff)
 print
 
 print "L1 Neighbours of ", ha.addressToCanon(ad1),":"
