@@ -12,14 +12,16 @@ def coefficients(address):
     B0 = [[1,-0.5,-0.5],[-0.5,1,-0.5],[-0.5,-0.5,1]]
     B1 = [[2.5,-0.5,-2],[-2,2.5,-0.5],[-0.5,-2,2.5]]
     B2 = [[5.5,1,-6.5],[-6.5,5.5,1],[1,-6.5,5.5]]
+    B3 = [[10,8.5,-18.5],[-18.5,10,8.5],[8.5,-18.5,10]]
     
     for i in range(numDigits):
         trips.append(address.bin[0+i*3:3+i*3])
+    trips.reverse()
     
-    for i in range(3):
+    for i in range(numDigits):
         if i==0:
             for j in range(3):
-                for num,bit in zip(B2[j],trips[i]):
+                for num,bit in zip(B0[j],trips[i]):
                     coeffs[j] += num*int(bit)
         elif i==1:
             for j in range(3):
@@ -27,7 +29,11 @@ def coefficients(address):
                     coeffs[j] += num*int(bit)
         elif i==2:
             for j in range(3):
-                for num,bit in zip(B0[j],trips[i]):
+                for num,bit in zip(B2[j],trips[i]):
+                    coeffs[j] += num * int(bit)
+        elif i==3:
+            for j in range(3):
+                for num,bit in zip(B3[j],trips[i]):
                     coeffs[j] += num * int(bit)
     
     return coeffs

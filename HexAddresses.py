@@ -2,7 +2,6 @@ from bitstring import Bits
 from bitstring import BitArray
 from math import pow
 
-
 def carry(digits):
 
     for digit in digits:
@@ -13,7 +12,6 @@ def carry(digits):
         bits = bits ^ digit
     bits.rol(1)
     return bits
-
 
 def remainder(a,b):
 
@@ -103,6 +101,13 @@ def canonToAddress(canonAddress):
 def addressAdd(address1,address2):
 
     assert len(address1)%3 == 0 and len(address2)%3 == 0, "Bitstring length must be multiple of three"
+    
+    while (len(address1) != len(address2)):
+        if (len(address1) < len(address2)):
+            address1 = Bits(bin='000'+address1.bin)
+        else:
+            address2 = Bits(bin='000'+address2.bin)
+
     assert len(address1) == len(address2), "Bitstrings must be equal length"
     
     numDigits = len(address1)/3
@@ -130,6 +135,8 @@ def addressAdd(address1,address2):
     addressOut.reverse()
     bits = BitArray('')
 
+    if (car.bin != '000' and car.bin != '111'):
+        bits.append(car)
     for i in range(numDigits):
         bits.append(addressOut[i])
 
