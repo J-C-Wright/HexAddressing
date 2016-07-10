@@ -44,7 +44,7 @@ def add(a,b):
 
     return [carTemp,bits]
 
-def bitsToInt(trip):
+def bitsToCanon(trip):
     assert len(trip) == 3, "Must be three bits long"
 
     if trip == '100':
@@ -62,7 +62,7 @@ def bitsToInt(trip):
     else: 
         return '0'  #111 = 000
 
-def intToBits(digit):
+def canonToBits(digit):
     assert digit <= 6 and digit >= 0, "Must be between 0 and 6"
 
     if digit == 0:
@@ -80,7 +80,7 @@ def intToBits(digit):
     elif digit == 6:
         return '011'
 
-def addressToInt(address):
+def addressToCanon(address):
 
     assert len(address)%3 == 0, "Bitstring length must be multiple of three"
 
@@ -90,14 +90,14 @@ def addressToInt(address):
     
     for i in range(numDigits):
         trip = trips[0+i*3:3+i*3]
-        digits += bitsToInt(trip)
+        digits += bitsToCanon(trip)
         
     return digits
 
-def intToAddress(intAddress):
+def canonToAddress(canonAddress):
     bitString = ""
-    for digit in intAddress:
-        bitString += intToBits(int(digit))
+    for digit in canonAddress:
+        bitString += canonToBits(int(digit))
     return Bits(bin=bitString)
 
 def addressAdd(address1,address2):
@@ -140,7 +140,7 @@ def getL1Neighbours(address):
     directions = ['001','003','002','006','004','005']
     addresses = []
     for direction in directions:
-        dirAddress = intToAddress(direction)
+        dirAddress = canonToAddress(direction)
         neighbour = addressAdd(address,dirAddress)
         addresses.append(neighbour)
     return addresses
@@ -152,14 +152,14 @@ def getL2Neighbours(address):
                   '065','043','041','052','053','016']
     addresses = []
     for direction in directions:
-        dirAddress = intToAddress(direction)
+        dirAddress = canonToAddress(direction)
         neighbour = addressAdd(address,dirAddress)
         addresses.append(neighbour)
     return addresses
 
 def addressToIndex(address):
 
-    digits = addressToInt(address)
+    digits = addressToCanon(address)
     digits = digits[::-1]
        
     index = 0
@@ -168,7 +168,7 @@ def addressToIndex(address):
 
     return index
 
-def indexToInt(index):
+def indexToCanon(index):
 
     length = len(str(index))
     digit = index
@@ -193,7 +193,7 @@ def makeCanonArray(start,shift,step,order):
 
     canons = []
     for i in range(start,7**order-shift,step):
-        canons.append(indexToInt(i+shift))
+        canons.append(indexToCanon(i+shift))
 
     return canons
 

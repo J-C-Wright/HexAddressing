@@ -14,9 +14,9 @@ assert len(adString)==3, "Address is not 3 digits"
 
 print "Demonstration of neighbour finding and address->coordinates conversion"
 print "Input cell address is:", adString
-ad1 = ha.intToAddress(adString)
+ad1 = ha.canonToAddress(adString)
 
-print ha.addressToInt(ad1), " -- ",
+print ha.addressToCanon(ad1), " -- ",
 print ad1.bin," -- ",
 coeffs = hc.coefficients(ad1)
 print "({:3.1f},{:3.1f},{:3.1f})".format(coeffs[0],coeffs[1],coeffs[2])," -- ",
@@ -24,11 +24,11 @@ coords = hc.addressToXY(ad1)
 print "({:6.3f},{:6.3f})".format(coords[0],coords[1])," -- ",
 print ha.addressToIndex(ad1)
 
-print "L1 Neighbours of ", ha.addressToInt(ad1),":"
+print "L1 Neighbours of ", ha.addressToCanon(ad1),":"
 neighbours = ha.getL1Neighbours(ad1)
 for tile in neighbours:
 
-    print ha.addressToInt(tile), " -- ",
+    print ha.addressToCanon(tile), " -- ",
     print tile.bin," -- ",
     coeffs = hc.coefficients(tile)
     print "({:3.1f},{:3.1f},{:3.1f})".format(coeffs[0],coeffs[1],coeffs[2])," -- ",

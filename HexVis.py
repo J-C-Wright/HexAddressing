@@ -10,7 +10,7 @@ from math import sqrt
 def getPath(address):
     
     scale = 1/sqrt(3)
-    ad = ha.intToAddress(address)
+    ad = ha.canonToAddress(address)
     coords = hc.addressToXY(ad)
 
     hexVerts = [(-1.000*scale+coords[0], 0.000*scale+coords[1]),
@@ -35,7 +35,7 @@ def getPath(address):
     return path
 
 def hexLabel(axes,address,fontSize):
-    ad = ha.intToAddress(address)
+    ad = ha.canonToAddress(address)
     coords = hc.addressToXY(ad)
     axes.annotate(address,(coords[0]-0.15,coords[1]-0.05),fontsize=fontSize)
 
