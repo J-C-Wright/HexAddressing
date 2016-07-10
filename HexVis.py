@@ -73,16 +73,20 @@ def drawHexes(addresses,show=True,save=False,directory='',fileName=''):
         fig.savefig(directory+fileName+".pdf",format='pdf')
 
 
+canons1 = ha.makeCanonArray(0,0,1,3)
+canons2 = []#ha.makeCanonArray(0,0,1,3)
+s = set(canons2)
+canons3 = [x for x in canons1 if x not in s]
+
+drawHexes(canons3)
+
+'''
 srt = 0
 shf = 0
 stp = 1
 odr = 3
-for i in range(1,16,1):
+for i in range(1,21,1):
     canons = ha.makeCanonArray(start=srt,shift=shf,step=i,order=odr)
     name = 'Start'+str(srt)+'_Shift'+str(shf)+'_Step'+str(i)+'_Order'+str(odr)
     drawHexes(canons,show=False,save=True,directory="Plots/",fileName=name)
-
-
-
-
-
+'''
