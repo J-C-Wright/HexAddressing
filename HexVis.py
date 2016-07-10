@@ -34,19 +34,19 @@ def getPath(address):
     path = Path(hexVerts,codes)
     return path
 
-def hexLabel(axes,address,fontSize):
-    ad = ha.canonToAddress(address)
+def hexLabel(axes,canon,fontSize):
+    ad = ha.canonToAddress(canon)
     coords = hc.addressToXY(ad)
-    axes.annotate(address,(coords[0]-0.15,coords[1]-0.05),fontsize=fontSize)
+    axes.annotate(canon,(coords[0]-0.15,coords[1]-0.05),fontsize=fontSize)
 
 def getPatch(path):
     return patches.PathPatch(path, facecolor='orange', lw=1)
          
-def drawHexes(addresses,show=True,save=False,directory='',fileName=''):
+def drawHexes(canons,show=True,save=False,directory='',fileName=''):
 
     patchList = []
-    for address in addresses:
-        path = getPath(address)
+    for canon in canons:
+        path = getPath(canon)
         patchList.append(getPatch(path))
 
     fig = plt.figure()
@@ -60,8 +60,8 @@ def drawHexes(addresses,show=True,save=False,directory='',fileName=''):
     ax.set_xlim(-4*scale,4*scale)
     ax.set_ylim(-4*scale,4*scale)
 
-    for address in addresses:
-        hexLabel(ax,address,10/scale)
+    for canon in canons:
+        hexLabel(ax,canon,10/scale)
 
     plt.axes().set_aspect('equal')
     if (save):
@@ -72,18 +72,19 @@ def drawHexes(addresses,show=True,save=False,directory='',fileName=''):
     if (show):
         plt.show()
 
-
+'''
 canons1 = ha.makeCanonArray(0,0,1,3)
 canons2 = []#ha.makeCanonArray(0,0,1,3)
 s = set(canons2)
 canons3 = [x for x in canons1 if x not in s]
 
 canons4 = ['000','001','002','004','010','020','040','100','200','400']
+'''
 
 canons5 = ha.makeCanonArray(0,0,1,4)
 
 
-drawHexes(canons5,show=True,save=True,directory="Plots/",fileName="FourthAggregate")
+drawHexes(canons5,show=False,save=True,directory="Plots/",fileName="FourthAggregate")
 
 '''
 srt = 0

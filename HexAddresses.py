@@ -188,13 +188,10 @@ def indexToCanon(index):
             digit = rem
         else:
             canon += '0'
-
-    while len(canon)%3 != 0:
-        canon = '0' + canon
-
-    if (canon[:3] == '000' and len(canon) > 3):
-        canon = canon[3:]
-    return canon
+    if canon[0] == '0':
+        return canon[1:]  #Fix this
+    else:
+        return canon
 
 def makeCanonArray(start,shift,step,order):
 
