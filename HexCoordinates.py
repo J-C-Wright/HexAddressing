@@ -9,33 +9,16 @@ def coefficients(address):
     coeffs = [0,0,0]
     trips = []
 
-    B0 = [[1,-0.5,-0.5],[-0.5,1,-0.5],[-0.5,-0.5,1]]
-    B1 = [[2.5,-0.5,-2],[-2,2.5,-0.5],[-0.5,-2,2.5]]
-    B2 = [[5.5,1,-6.5],[-6.5,5.5,1],[1,-6.5,5.5]]
-    B3 = [[10,8.5,-18.5],[-18.5,10,8.5],[8.5,-18.5,10]]
-    
     for i in range(numDigits):
         trips.append(address.bin[0+i*3:3+i*3])
     trips.reverse()
     
     for i in range(numDigits):
-        if i==0:
-            for j in range(3):
-                for num,bit in zip(B0[j],trips[i]):
-                    coeffs[j] += num*int(bit)
-        elif i==1:
-            for j in range(3):
-                for num,bit in zip(B1[j],trips[i]):
-                    coeffs[j] += num*int(bit)
-        elif i==2:
-            for j in range(3):
-                for num,bit in zip(B2[j],trips[i]):
-                    coeffs[j] += num * int(bit)
-        elif i==3:
-            for j in range(3):
-                for num,bit in zip(B3[j],trips[i]):
-                    coeffs[j] += num * int(bit)
-    
+        B = Bs[i]
+        for j in range(3):
+            for num,bit in zip(B[j],trips[i]):
+                coeffs[j] += num*int(bit)
+
     return coeffs
 
 
@@ -70,9 +53,44 @@ def addressToXY(address):
     return [x,y]
 
 
-    
+def getMappingMatrices(order):
+
+    BArray = []
+    B0 = [[1,-0.5,-0.5],[-0.5,1,-0.5],[-0.5,-0.5,1]]
+    BArray.append(B0)
+
+    for j in range(1,order+1,1):
+
+        A = [[0,0,0],[0,0,0],[0,0,0]]
+        for mat in BArray[:j]:
+            for i in range(3):
+                for j in range(3):
+                    A[i][j] += mat[i][j]
+
+        vec = [1,-0.5,-0.5]
+        for i in range(3):
+            vec[i] += A[i][0]*2 + A[i][2]
+            
+        B = [[0,0,0],[0,0,0],[0,0,0]]
+        for i in range(3):
+            p = vec[-i::]+vec[:-i:]
+            B[0][i] = p[0]
+            B[1][i] = p[1]
+            B[2][i] = p[2]
+
+        BArray.append(B)
+
+    return BArray
+
+Bs = getMappingMatrices(25)
+
+       
+        
+            
+            
 
 
+        
 
 
 

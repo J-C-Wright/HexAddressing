@@ -40,9 +40,9 @@ def hexLabel(axes,canon,fontSize):
     axes.annotate(canon,(coords[0]-0.15,coords[1]-0.05),fontsize=fontSize)
 
 def getPatch(path):
-    return patches.PathPatch(path, facecolor='orange', lw=1)
+    return patches.PathPatch(path, facecolor='orange', lw=0.25)
          
-def drawHexes(canons,show=True,save=False,directory='',fileName=''):
+def drawHexes(canons,show=True,save=False,directory='',fileName='',scale=1.0):
 
     patchList = []
     for canon in canons:
@@ -56,12 +56,11 @@ def drawHexes(canons,show=True,save=False,directory='',fileName=''):
     for patch in patchList:
         ax.add_patch(patch)
 
-    scale = 9.0
-    ax.set_xlim(-4*scale,4*scale)
-    ax.set_ylim(-4*scale,4*scale)
+    ax.set_xlim(-2.0-scale,2.0+scale)
+    ax.set_ylim(-2.0-scale,2.0+scale)
 
     for canon in canons:
-        hexLabel(ax,canon,10/scale)
+        hexLabel(ax,canon,int(30/scale))
 
     plt.axes().set_aspect('equal')
     if (save):
@@ -72,27 +71,48 @@ def drawHexes(canons,show=True,save=False,directory='',fileName=''):
     if (show):
         plt.show()
 
+def arrayDiff(array1,array2):
+    s = set(array2)
+    return [x for x in array1 if x not in s]
+
+
+canons1 = ha.makeCanonArray(0,0,2,4)
+canons2 = ha.makeCanonArray(0,0,4,4)
+canons3 = arrayDiff(canons1,canons2)
+
+canons4 = [ '000','001','002','004',
+            '010','020','040',
+            '100','200','400',
+            '1000','2000','4000',
+            '10000','20000','40000',
+            ]
+canons6 = ['000','001','002','003','004','005','006',
+           '010','020','030','040','050','060',
+           '100','200','300','400','500','600',
+           '1000','2000','3000','4000','5000','6000',
+           '10000','20000','30000','40000','50000','60000'
+           ]
+#srt = 0
+#shf = 0
+#stp = 49
+#odr = 4
+#canons5 = ha.makeCanonArray(srt,shf,stp,odr)
+
+
+drawHexes(canons4,show=False,save=True,directory="Plots/",fileName="AggregateCentriods_5",scale=3**4)
+#drawHexes(canons3,show=False,save=True,directory="Plots/",fileName="Diff")
+
+#name = 'Start'+str(srt)+'_Shift'+str(shf)+'_Step'+str(stp)+'_Order'+str(odr)
+#drawHexes(canons5,show=False,save=True,directory="Plots/",fileName=name)
+
+
 '''
-canons1 = ha.makeCanonArray(0,0,1,3)
-canons2 = []#ha.makeCanonArray(0,0,1,3)
-s = set(canons2)
-canons3 = [x for x in canons1 if x not in s]
-'''
-
-canons4 = ['000','001','002','004','010','020','040','100','200','400','1000','2000','4000']
-
-srt = 0
-shf = 0
-stp = 7
-odr = 4
-canons5 = ha.makeCanonArray(srt,shf,stp,odr)
+for i in range(1,6,1):
+    agLvl = i
+    canons7 = ha.makeCanonArray(0,0,1,agLvl)
+    drawHexes(canons7,show=False,save=True,directory="Plots/",fileName="Aggregate"+str(agLvl),scale=3**(i-1))
 
 
-#drawHexes(canons4,show=False,save=True,directory="Plots/",fileName="AggregateCentriods")
-name = 'Start'+str(srt)+'_Shift'+str(shf)+'_Step'+str(stp)+'_Order'+str(odr)
-drawHexes(canons5,show=False,save=True,directory="Plots/",fileName=name)
-
-'''
 for i in range(1,21,1):
     canons = ha.makeCanonArray(start=srt,shift=shf,step=i,order=odr)
     name = 'Start'+str(srt)+'_Shift'+str(shf)+'_Step'+str(i)+'_Order'+str(odr)

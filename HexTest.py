@@ -14,6 +14,8 @@ for o, a in myopts:
         ad2String = a
 #assert len(ad1String)==3, "Address is not 3 digits"
 
+print
+
 print "Demonstration of neighbour finding and address->coordinates conversion"
 print "Input cell address is:", ad1String
 ad1 = ha.canonToAddress(ad1String)
