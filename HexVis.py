@@ -40,7 +40,7 @@ def hexLabel(axes,canon,fontSize):
     axes.annotate(canon,(coords[0]-0.15,coords[1]-0.05),fontsize=fontSize)
 
 def getPatch(path):
-    return patches.PathPatch(path, facecolor='orange', lw=0.25)
+    return patches.PathPatch(path, facecolor='orange', lw=0.05)
          
 def drawHexes(canons,show=True,save=False,directory='',fileName='',scale=1.0):
 
@@ -90,20 +90,24 @@ canons6 = ['000','001','002','003','004','005','006',
            '010','020','030','040','050','060',
            '100','200','300','400','500','600',
            '1000','2000','3000','4000','5000','6000',
-           '10000','20000','30000','40000','50000','60000'
+           '10000','20000','30000','40000','50000','60000',
+           '100000','200000','300000','400000','500000','600000',
            ]
-#srt = 0
-#shf = 0
-#stp = 49
-#odr = 4
-#canons5 = ha.makeCanonArray(srt,shf,stp,odr)
+srt = 0
+shf = 0
+stp = 1
+odr = 6
+canons5 = ha.makeCanonArray(srt,shf,stp,odr)
 
 
-drawHexes(canons4,show=False,save=True,directory="Plots/",fileName="AggregateCentriods_5",scale=3**4)
+#drawHexes(canons5,show=False,save=True,directory="Plots/",fileName="Aggregate"+str(odr),scale=3**(odr-1))
 #drawHexes(canons3,show=False,save=True,directory="Plots/",fileName="Diff")
 
 #name = 'Start'+str(srt)+'_Shift'+str(shf)+'_Step'+str(stp)+'_Order'+str(odr)
 #drawHexes(canons5,show=False,save=True,directory="Plots/",fileName=name)
+
+
+
 
 
 '''

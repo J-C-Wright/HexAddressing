@@ -28,6 +28,8 @@ coeffs = hc.coefficients(ad1)
 print "({:3.1f},{:3.1f},{:3.1f})".format(coeffs[0],coeffs[1],coeffs[2])," -- ",
 coords = hc.addressToXY(ad1)
 print "({:6.3f},{:6.3f})".format(coords[0],coords[1])," -- ",
+reco = hc.coordinatesToAddress(coeffs)
+print ha.addressToCanon(reco)," -- ",
 print ha.addressToIndex(ad1)
 
 print ha.addressToCanon(ad2), " -- ",
@@ -36,6 +38,8 @@ coeffs = hc.coefficients(ad2)
 print "({:3.1f},{:3.1f},{:3.1f})".format(coeffs[0],coeffs[1],coeffs[2])," -- ",
 coords = hc.addressToXY(ad2)
 print "({:6.3f},{:6.3f})".format(coords[0],coords[1])," -- ",
+reco = hc.coordinatesToAddress(coeffs)
+print ha.addressToCanon(reco)," -- ",
 print ha.addressToIndex(ad2)
 
 print ha.addressToCanon(out), " -- ",
@@ -44,6 +48,8 @@ coeffs = hc.coefficients(out)
 print "({:3.1f},{:3.1f},{:3.1f})".format(coeffs[0],coeffs[1],coeffs[2])," -- ",
 coords = hc.addressToXY(out)
 print "({:6.3f},{:6.3f})".format(coords[0],coords[1])," -- ",
+reco = hc.coordinatesToAddress(coeffs)
+print ha.addressToCanon(reco)," -- ",
 print ha.addressToIndex(out)
 
 print
@@ -63,6 +69,8 @@ for tile in neighbours:
     print "({:3.1f},{:3.1f},{:3.1f})".format(coeffs[0],coeffs[1],coeffs[2])," -- ",
     coords = hc.addressToXY(tile)
     print "({:6.3f},{:6.3f})".format(coords[0],coords[1])," -- ",
+    reco = hc.coordinatesToAddress(coeffs)
+    print ha.addressToCanon(reco)," -- ",
     print ha.addressToIndex(tile)
 
 

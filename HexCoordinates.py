@@ -1,5 +1,5 @@
 import HexAddresses as ha
-from math import sqrt, cos, sin, pi, atan
+from math import sqrt, cos, sin, pi, atan, fabs
 
 def coefficients(address):
 
@@ -52,6 +52,35 @@ def addressToXY(address):
 
     return [x,y]
 
+def coordinatesToAddress(coords):
+
+    assert len(coords) == 3, "Must be 3 coords given (u,v,w)"
+    assert sum(coords) == 0, "u + v + w must equal zero"
+
+    du = (2.0/3.0)*(2*coords[0]+coords[1])
+    dv = (2.0/3.0)*(coords[0]+2*coords[1])
+
+    out = ha.canonToAddress('0')
+    one = ha.canonToAddress('1')
+    two = ha.canonToAddress('2')
+    six = ha.canonToAddress('6')
+    five = ha.canonToAddress('5')
+
+    if du > 0:
+        for i in range(int(fabs(du))):
+            out = ha.addressAdd(out,one)
+    elif du < 0:
+        for i in range(int(fabs(du))):
+            out = ha.addressAdd(out,ha.negateAddress(one))
+    if dv > 0:
+        for i in range(int(fabs(dv))):
+            out = ha.addressAdd(out,two)
+    elif dv < 0:
+        for i in range(int(fabs(dv))):
+            out = ha.addressAdd(out,ha.negateAddress(two))
+
+    return out
+
 
 def getMappingMatrices(order):
 
@@ -83,6 +112,7 @@ def getMappingMatrices(order):
     return BArray
 
 Bs = getMappingMatrices(25)
+
 
        
         
