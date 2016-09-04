@@ -1,6 +1,3 @@
-
-from math import pow
-
 import StandardAddress as sa
 
 class CanonAddress:

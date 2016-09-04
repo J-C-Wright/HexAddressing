@@ -1,6 +1,5 @@
 from bitstring import Bits
 from bitstring import BitArray
-from math import pow
 import CanonAddress as ca
 
 class StandardAddress(Bits):
@@ -71,6 +70,11 @@ class StandardAddress(Bits):
     def __str__(self):
         return self.bin
 
+
+
+
+
+
 def standardFromCanon(canon):
 
     binString = ''
@@ -97,6 +101,7 @@ def standardFromSpiral(spiral):
     canon = ca.canonFromSpiral(spiral)
     return standardFromCanon(canon)
 
+#Functions for handling digits of standard addresses
 def addDigits(digit1,digit2):
 
     bits = BitArray('')
