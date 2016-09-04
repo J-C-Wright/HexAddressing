@@ -121,50 +121,6 @@ def addressAdd(address1,address2):
 
     numDigits = len(address1)/3
 
-    trips1 = []
-    trips2 = []
-
-    for i in range(numDigits):
-        trips1.append(address1[0+i*3:3+i*3])
-        trips2.append(address2[0+i*3:3+i*3])
-    
-    trips1.reverse()
-    trips2.reverse()
-
-    addressOut = []
-    car = Bits(bin='000')
-    for i in range(numDigits):
-
-        rem = remainder(trips1[i],trips2[i])
-        rem = remainder(rem,car)
-        fix = ~(car^rem)
-        #print '\n\n',fix.bin,'\n\n'
-        car = carry([fix,trips1[i],trips2[i]])
-
-        addressOut.append(rem)
-
-    addressOut.reverse()
-    bits = BitArray('')
-
-    if (car.bin != '000' and car.bin != '111'):
-        bits.append(car)
-    for i in range(numDigits):
-        bits.append(addressOut[i])
-
-    return bits
-
-def addressAddNew(address1,address2):
-
-    assert len(address1)%3 == 0 and len(address2)%3 == 0, "Bitstring length must be multiple of three"
-    
-    while (len(address1) != len(address2)):
-        if (len(address1) < len(address2)):
-            address1 = Bits(bin='000'+address1.bin)
-        else:
-            address2 = Bits(bin='000'+address2.bin)
-
-    numDigits = len(address1)/3
-
     digits1 = []
     digits2 = []
 
@@ -181,9 +137,6 @@ def addressAddNew(address1,address2):
     for digit1,digit2 in zip(digits1,digits2):
 
         digits = [digit1,digit2] + carries
-        print "Digits: ",
-        for digit in digits: print digit.bin,' ',
-        print
 
         carries = []
         rem = Bits(bin='000')
@@ -200,17 +153,12 @@ def addressAddNew(address1,address2):
     bits = BitArray('')
 
     #If there are still non-zero carries
-    print "Carries: ",
-    for c in carries: print c.bin,' ',
-    print 
     if not all(c.bin == '000' or c.bin == '111' for c in carries):
         rem = Bits(bin='000')
         for digit in carries:
             remtemp = remainder(rem,digit)
             car = carry([rem,digit,remtemp])
             rem = remtemp
-        print "Car: ",car.bin
-        print "Rem: ",rem.bin
 
         bits.append(rem)
 
