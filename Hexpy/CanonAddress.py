@@ -4,6 +4,8 @@ class CanonAddress:
 
     def __init__(self,address):
         assert address.isdigit(),'Must give an integer input'
+        for i in address:
+            assert int(i) < 7,'Number must be in base 7'
 
         self.address = address
 
