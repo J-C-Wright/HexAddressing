@@ -3,7 +3,8 @@ import StandardAddress as sa
 class CanonAddress:
 
     def __init__(self,address):
-        assert address.isdigit(),'Must give an integer input'
+        assert address.isdigit() or isinstance(address,int),'Must give an integer input'
+        address=str(address)
         for i in address:
             assert int(i) < 7,'Number must be in base 7'
 
@@ -12,14 +13,15 @@ class CanonAddress:
     def __str__(self):
         return self.address
 
-    def __add__(self,other):
+    def __int__(self):
+        return int(self.address)
 
+    def __add__(self,other):
         standard_self = sa.standardFromCanon(self)
         standard_other = sa.standardFromCanon(other)
         return canonFromStandard(standard_self + standard_other)
 
     def __sub__(self,other):
-
         standard_self = sa.standardFromCanon(self)
         standard_other = sa.standardFromCanon(other)
         return canonFromStandard(standard_self - standard_other)
@@ -55,8 +57,9 @@ def canonFromStandard(address):
            
     return CanonAddress(canonStr)
         
-def canonFromSpiral(address):
+def canonFromSpiral(spiral):
 
+    address = int(spiral)
     length = len(str(address))
     canonStr = ''
 
@@ -68,7 +71,7 @@ def canonFromSpiral(address):
         else:
             canonStr += '0'
     if canonStr[0] == '0':
-        return CanonAddress(canonStr[1:])  #Fix this
+        return CanonAddress(canonStr[1:])
     else:
         return CanonAddress(canonStr)
 
