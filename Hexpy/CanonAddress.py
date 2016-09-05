@@ -1,4 +1,5 @@
 import StandardAddress as sa
+import SpiralAddress as spa
 
 class CanonAddress:
 
@@ -9,6 +10,16 @@ class CanonAddress:
             assert int(i) < 7,'Number must be in base 7'
 
         self.address = address
+
+    def increment(self,step=1):
+        spiral_self = spa.spiralFromCanon(self)
+        spiral_self.increment(step=step)
+        self.address = canonFromSpiral(spiral_self).address
+
+    def decrement(self,step=1):
+        spiral_self = spa.spiralFromCanon(self)
+        spiral_self.decrement(step=step)
+        self.address = canonFromSpiral(spiral_self).address
 
     def __str__(self):
         return self.address

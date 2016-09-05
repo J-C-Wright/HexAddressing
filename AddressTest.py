@@ -39,8 +39,11 @@ if __name__ == '__main__':
     print ca2
     print ca1,'+',ca2,'=',ca1 + ca2
     print ca1,'-',ca2,'=',ca1 - ca2
-    print '~a = ',~ca1
-    print '~b = ',~ca2
+    print '~',ca1,' = ',~ca1
+    print '~',ca2,' = ',~ca2
+    print ca1,'++ = ',
+    ca1.increment()
+    print ca1
     print
 
     sa1 = sa.standardFromCanon(ca1)
@@ -51,8 +54,11 @@ if __name__ == '__main__':
     print sa2
     print sa1,'+',sa2,'=',(sa1 + sa2).bin
     print sa1,'-',sa2,'=',(sa1 - sa2).bin
-    print '~a = ',~sa1
-    print '~b = ',~sa2
+    print '~',sa1,' = ',~sa1
+    print '~',sa2,' = ',~sa2
+    print sa1,'++ = ',
+    sa1.increment()
+    print sa1
     print
     
     spa1 = spa.spiralFromCanon(opt.a)
@@ -63,8 +69,11 @@ if __name__ == '__main__':
     print spa2
     print spa1,'+',spa2,'=',(spa1 + spa2)
     print spa1,'-',spa2,'=',(spa1 - spa2)
-    print '~a = ',~spa1
-    print '~b = ',~spa2
+    print '~',spa1,' = ',~spa1
+    print '~',spa2,' = ',~spa2
+    print spa1,'++ = ',
+    spa1.increment()
+    print spa1
     print
 
     print "Itterating up to spiral = 49"
