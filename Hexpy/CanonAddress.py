@@ -26,6 +26,9 @@ class CanonAddress:
         standard_other = sa.standardFromCanon(other)
         return canonFromStandard(standard_self - standard_other)
 
+    def __invert__(self):
+        standard_self = sa.standardFromCanon(self)
+        return canonFromStandard(~standard_self)
     
 
 

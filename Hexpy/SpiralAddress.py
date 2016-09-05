@@ -25,6 +25,10 @@ class SpiralAddress:
         standard_other = sa.standardFromSpiral(other)
         return spiralFromStandard(standard_self-standard_other)
 
+    def __invert__(self):
+       standard_self = sa.standardFromSpiral(self)
+       return spiralFromStandard(~standard_self)
+
     def increment(self,step=1):
         self.address += step
 
