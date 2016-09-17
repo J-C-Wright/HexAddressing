@@ -17,7 +17,6 @@ class addressToUVW:
     def __call__(self,address):
         addressOrder = address.order()
         if addressOrder > self.order:
-
             self.calculateMappingMatrices(addressOrder-1)
             self.order = addressOrder
 
