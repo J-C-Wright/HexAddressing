@@ -3,7 +3,7 @@ from bitstring import BitArray
 import CanonAddress as ca
 import SpiralAddress as spa
 
-class StandardAddress(BitArray):
+class StandardAddress(Bits):
 
     #Adds an assert to make sure that the digits have length 3
     def __init__(self, *args, **kwargs):
@@ -75,15 +75,13 @@ class StandardAddress(BitArray):
         spiral_self = spa.spiralFromStandard(self)
         spiral_self.increment(step=step)
         standard_self = standardFromSpiral(spiral_self)
-        self.clear()
-        self.append(standard_self)
+        self = Bits(bin=standard_self.bin)
 
     def decrement(self,step=1):
         spiral_self = spa.spiralFromStandard(self)
         spiral_self.decrement(step=step)
         standard_self = standardFromSpiral(spiral_self)
-        self.clear()
-        self.append(standard_self)
+        self = Bits(bin=standard_self.bin)
 
 
 

@@ -44,7 +44,13 @@ def spiralFromStandard(address):
 
     digits = []
     for i in range(len(standard)/3):
-        digits.append(standard[0+i*3:3+i*3])
+        digit = standard[0+i*3:3+i*3]
+        if digit != '111':
+            digits.append(digit)
+        else:
+            digits.append('000')
+
+
 
     digits.reverse()
     out = 0
