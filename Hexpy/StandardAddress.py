@@ -9,28 +9,33 @@ class StandardAddress(Bits):
     def __init__(self, *args, **kwargs):
         super(StandardAddress, self).__init__(*args, **kwargs)
         assert len(self.bin)%3 == 0, 'Length of address must be a multiple of three.'
+
+    def order(self):
+        return len(self)/3
+
+    def digits(self):
+        digits = []
+        for i in range(self.order()):
+            digits.append(self[0+i*3:3+i*3])
+        return digits
     
     #Addition overload
     def __add__(self,other):
         
         while (len(self) != len(other)):
             if (len(self) < len(other)):
-                self = Bits(bin='000'+self.bin)
+                self = StandardAddress(bin='000'+self.bin)
             else:
-                other = Bits(bin='000'+other.bin)
+                other = StandardAddress(bin='000'+other.bin)
 
-        digits1 = []
-        digits2 = []
-
-        for i in range(len(self)/3):
-            digits1.append(self[0+i*3:3+i*3])
-            digits2.append(other[0+i*3:3+i*3])
-        
+        digits1 = self.digits()
+        digits2 = other.digits()
         digits1.reverse()
         digits2.reverse()
 
         addressOut = []
         carries = []
+
         for digit1,digit2 in zip(digits1,digits2):
 
             digits = [digit1,digit2] + carries
@@ -61,7 +66,7 @@ class StandardAddress(Bits):
         for digit in addressOut:
             bits.append(digit)
 
-        return bits
+        return StandardAddress(bin=bits.bin)
 
     #Subtraction overload
     def __sub__(self,other):
@@ -82,7 +87,6 @@ class StandardAddress(Bits):
         spiral_self.decrement(step=step)
         standard_self = standardFromSpiral(spiral_self)
         self = Bits(bin=standard_self.bin)
-
 
 
 

@@ -1,7 +1,7 @@
 import StandardAddress as sa
 import SpiralAddress as spa
 
-class CanonAddress:
+class CanonAddress(object):
 
     def __init__(self,address):
         assert address.isdigit() or isinstance(address,int),'Must give an integer input'
@@ -10,6 +10,15 @@ class CanonAddress:
             assert int(i) < 7,'Number must be in base 7'
 
         self.address = address
+
+    def order(self):
+        return len(self.address)
+
+    def digits(self):
+        digits = []
+        for digit in self.address:
+            digits.append(digit)
+        return digits
 
     def increment(self,step=1):
         spiral_self = spa.spiralFromCanon(self)
@@ -40,7 +49,6 @@ class CanonAddress:
     def __invert__(self):
         standard_self = sa.standardFromCanon(self)
         return canonFromStandard(~standard_self)
-    
 
 
 
@@ -49,26 +57,22 @@ class CanonAddress:
 
 def canonFromStandard(address):
 
-    standard = address.bin
     canonStr = ''
-
-    for i in range(len(address)/3):
-        digit = standard[0+i*3:3+i*3]
-        if digit == '100':
+    for digit in address.digits():
+        if digit.bin == '100':
             canonStr += '1'
-        elif digit == '010':
+        elif digit.bin == '010':
             canonStr += '2'
-        elif digit == '110':
+        elif digit.bin == '110':
             canonStr += '3'
-        elif digit == '001':
+        elif digit.bin == '001':
             canonStr += '4'
-        elif digit == '101':
+        elif digit.bin == '101':
             canonStr += '5'
-        elif digit == '011':
+        elif digit.bin == '011':
             canonStr += '6'
         else: 
             canonStr += '0'  #111 = 000
-           
     return CanonAddress(canonStr)
         
 def canonFromSpiral(spiral):

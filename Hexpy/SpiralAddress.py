@@ -2,12 +2,19 @@ from bitstring import Bits
 from bitstring import BitArray
 from math import pow
 import StandardAddress as sa
+import CanonAddress as ca
 
-class SpiralAddress:
+class SpiralAddress(object):
 
     def __init__(self,address):
         self.address = int(address)
         assert self.address >= 0,'Address must be positive integer'
+
+    def order(self):
+        order = 0
+        while self.address > 7**order:
+            order += 1
+        return order
 
     def __str__(self):
         return str(self.address)
@@ -35,6 +42,7 @@ class SpiralAddress:
     def decrement(self,step=1):
         if self.address > 0:
             self.address -= step
+
 
 
         
