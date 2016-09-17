@@ -104,3 +104,14 @@ def coordinatesToAddress(coords,address_type='standard'):
     else:
         raise Exception, 'address_type '+address_type+' is not valid'
     
+def UVWToXY(uvw):
+
+    uvw_basis = [[0,1],[0.5*sqrt(3),-0.5],[-0.5*sqrt(3),-0.5]]
+    out = [0,0]
+
+    for vector,magnitude in zip(uvw_basis,uvw):
+        out[0] += vector[0]*magnitude
+        out[1] += vector[1]*magnitude
+
+    return out
+
