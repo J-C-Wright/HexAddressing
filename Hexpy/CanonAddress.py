@@ -11,25 +11,6 @@ class CanonAddress(object):
 
         self.address = address
 
-    def order(self):
-        return len(self.address)
-
-    def digits(self):
-        digits = []
-        for digit in self.address:
-            digits.append(digit)
-        return digits
-
-    def increment(self,step=1):
-        spiral_self = spa.spiralFromCanon(self)
-        spiral_self.increment(step=step)
-        self.address = canonFromSpiral(spiral_self).address
-
-    def decrement(self,step=1):
-        spiral_self = spa.spiralFromCanon(self)
-        spiral_self.decrement(step=step)
-        self.address = canonFromSpiral(spiral_self).address
-
     def __str__(self):
         return self.address
 
@@ -50,10 +31,24 @@ class CanonAddress(object):
         standard_self = sa.standardFromCanon(self)
         return canonFromStandard(~standard_self)
 
+    def order(self):
+        return len(self.address)
 
+    def digits(self):
+        digits = []
+        for digit in self.address:
+            digits.append(digit)
+        return digits
 
+    def increment(self,step=1):
+        spiral_self = spa.spiralFromCanon(self)
+        spiral_self.increment(step=step)
+        self.address = canonFromSpiral(spiral_self).address
 
-
+    def decrement(self,step=1):
+        spiral_self = spa.spiralFromCanon(self)
+        spiral_self.decrement(step=step)
+        self.address = canonFromSpiral(spiral_self).address
 
 def canonFromStandard(address):
 
@@ -78,22 +73,16 @@ def canonFromStandard(address):
 def canonFromSpiral(spiral):
 
     address = int(spiral)
-    length = len(str(address))
-    canonStr = ''
+    if address == 0: return CanonAddress('0')
 
-    for i in range(length,-1,-1):
-        rem = address % 7**i
-        if (rem != address):
-            canonStr += str((address - rem)/(7**i))
-            address = rem
-        else:
-            canonStr += '0'
-    if canonStr[0] == '0':
-        return CanonAddress(canonStr[1:])
-    else:
-        return CanonAddress(canonStr)
+    digits = []
+    while address:
+        digits.append(str(address % 7))
+        address /= 7
+    digits.reverse()
+    
+    return CanonAddress(''.join(digits))
 
-   
     
     
     
