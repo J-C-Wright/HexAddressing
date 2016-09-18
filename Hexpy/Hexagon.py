@@ -21,7 +21,7 @@ class Hexagon:
 
     def __init__(self,canon=None,standard=None,spiral=None,
                  side_size=1.0,orientation='side',colour='Orange',
-                 opacity = 1.0,line_width=0.05):
+                 opacity = 1.0,line_width=0.0):
 
         frame = inspect.currentframe()
         _,_,_,values = inspect.getargvalues(frame)
@@ -40,7 +40,7 @@ class Hexagon:
         elif canon != None:
             self.standard = sa.standardFromCanon(canon)
         elif spiral != None:
-            self.standard = sa.standardFromSpiral(canon)
+            self.standard = sa.standardFromSpiral(spiral)
         else:
             raise Exception, "No address in input"
 
@@ -56,7 +56,7 @@ class Hexagon:
             self.vertices = [(-1.0*self.side_size+self.centre_xy[0],self.centre_xy[1]),
                              (-0.5*self.side_size+self.centre_xy[0],self.side_size*sqrt(3)/2.0+self.centre_xy[1]),
                              (0.5*self.side_size+self.centre_xy[0],self.side_size*sqrt(3)/2.0+self.centre_xy[1]),
-                             (1.0*self.side_size+self.centre_xy[0],self.side_size*self.centre_xy[1]),
+                             (1.0*self.side_size+self.centre_xy[0],self.centre_xy[1]),
                              (0.5*self.side_size+self.centre_xy[0],self.side_size*-sqrt(3)/2.0+self.centre_xy[1]),
                              (-0.5*self.side_size+self.centre_xy[0],self.side_size*-sqrt(3)/2.0+self.centre_xy[1])]
         elif self.orientation == 'corner':
@@ -95,33 +95,5 @@ class Hexagon:
         path = Path(self.vertices+[self.vertices[0]],codes) #+...[0] is for closure of shape
         
         return patches.PathPatch(path,facecolor=self.colour,lw=self.line_width)
-
-
-
-
-
-
-
-        
-
-canon = Canon('1')
-
-test_hex = Hexagon(canon = canon,orientation='corner')
-print test_hex
-patch = test_hex.getPatch()
-print patch
-
-fig = plt.figure()
-fig.set_canvas(plt.gcf().canvas)
-ax = fig.add_subplot(111)
-ax.add_patch(patch)
-ax.set_xlim(-2.0,2.0)
-ax.set_ylim(-2.0,2.0)
-plt.axes().set_aspect('equal')
-
-plt.show()
-
-
-
 
 
