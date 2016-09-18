@@ -10,12 +10,12 @@ class StandardAddress(Bits):
         super(StandardAddress, self).__init__(*args, **kwargs)
         assert len(self.bin)%3 == 0, 'Length of address must be a multiple of three.'
 
-    def order(self):
+    def aggregate(self):
         return len(self)/3
 
     def digits(self):
         digits = []
-        for i in range(self.order()):
+        for i in range(self.aggregate()):
             digits.append(self[0+i*3:3+i*3])
         return digits
     

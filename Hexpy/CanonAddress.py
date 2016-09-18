@@ -31,7 +31,7 @@ class CanonAddress(object):
         standard_self = sa.standardFromCanon(self)
         return canonFromStandard(~standard_self)
 
-    def order(self):
+    def aggregate(self):
         return len(self.address)
 
     def digits(self):
@@ -77,7 +77,25 @@ def canonFromSpiral(spiral):
 
     digits = []
     while address:
-        digits.append(str(address % 7))
+        digit_b7 = address % 7
+
+        if digit_b7 == 0:
+            digits.append('0')
+        elif digit_b7 == 1:
+            digits.append('1')
+        elif digit_b7 == 2:
+            digits.append('3')
+        elif digit_b7 == 3:
+            digits.append('2')
+        elif digit_b7 == 4:
+            digits.append('6')
+        elif digit_b7 == 5:
+            digits.append('4')
+        elif digit_b7 == 6:
+            digits.append('5')
+        else:
+            raise Exception, "Something has gone quite wrong. It's not base 7!"
+
         address /= 7
     digits.reverse()
     

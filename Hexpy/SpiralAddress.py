@@ -10,11 +10,11 @@ class SpiralAddress(object):
         self.address = int(address)
         assert self.address >= 0,'Address must be positive integer'
 
-    def order(self):
-        order = 0
-        while self.address > 7**order:
-            order += 1
-        return order
+    def aggregate(self):
+        aggregate = 0
+        while int(self.address) >= 7**aggregate:
+            aggregate += 1
+        return aggregate
 
     def __str__(self):
         return str(self.address)
@@ -42,8 +42,6 @@ class SpiralAddress(object):
     def decrement(self,step=1):
         if self.address > 0:
             self.address -= step
-
-
 
         
 def spiralFromStandard(address):
