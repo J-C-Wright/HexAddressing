@@ -1,31 +1,31 @@
+import os
 import inspect
-from bitstring import Bits
-from bitstring import BitArray
-from math import pow
-import StandardAddress as sta
+
+import StandardAddress as sa
 import CanonAddress as ca
 import SpiralAddress as spa
 
+from CanonAddress import CanonAddress as Canon
+from StandardAddress import StandardAddress as Standard
+from SpiralAddress import SpiralAddress as Spiral
+
 class Hexagon:
 
-    def __init__(self,canon_address=None,standard_address=None,
-                 spiral_address=None,hexagon=None,coordinates=None):
-
+    def __init__(self,canon=None,standard=None,spiral=None,size=1):
 
         frame = inspect.currentframe()
         _,_,_,values = inspect.getargvalues(frame)
 
         numberOfNones = values.values().count(None)
-        assert 5-numberOfNones <= 1,"Too many inputs. Must specify one or zero input values"
+        if  3-numberOfNones != 1:
+            raise Exception, "Number of address inputs = {}. Must specify just one input to build hex".format(3-numberOfNones)
 
-        if canon_address is not None:
-            self.canon_address = canon_address
-        if standard_address is not None:
-            self.standard_address = standard_address
-        if spiral_address is not None:
-            self.spiral_address = spiral_address
-        if hexagon is not None:
-            self.hexagon = hexagon
-        if coordinates is not None:
-            self.coordinates = coordinates
 
+
+        
+
+canon = Canon('5')
+standard = Standard(bin='101')
+spiral = Spiral(5)
+
+Hexagon(canon = canon,standard=standard)
