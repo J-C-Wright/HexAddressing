@@ -8,7 +8,8 @@ class StandardAddress(Bits):
     #Adds an assert to make sure that the digits have length 3
     def __init__(self, *args, **kwargs):
         super(StandardAddress, self).__init__(*args, **kwargs)
-        assert len(self.bin)%3 == 0, 'Length of address must be a multiple of three.'
+        if len(self.bin)%3 != 0: 
+            raise Exception, 'Length of address must be a multiple of three.'
 
     def aggregate(self):
         return len(self)/3
